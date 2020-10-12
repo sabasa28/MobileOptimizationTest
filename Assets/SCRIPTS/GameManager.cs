@@ -3,7 +3,9 @@ using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
-	//public static Player[] Jugadoers;
+    //public static Player[] Jugadoers;
+
+    public static bool SinglePlayer = true;
 	
 	public static GameManager Instancia;
 	
@@ -53,18 +55,9 @@ public class GameManager : MonoBehaviour
 	public GameObject[] ObjsTuto2;
 	//la pista de carreras
 	public GameObject[] ObjsCarrera;
-	//de las descargas se encarga el controlador de descargas
-	
-	//para saber que el los ultimos 5 o 10 segs se cambie de tamaño la font del tiempo
-	//bool SeteadoNuevaFontSize = false;
-	//int TamOrigFont = 75;
-	//int TamNuevoFont = 75;
-	
-	/*
-	//para el testing
-	public float DistanciaRecorrida = 0;
-	public float TiempoTranscurrido = 0;
-	*/
+    //de las descargas se encarga el controlador de descargas
+
+    public GameObject InputPlayer2 = null;
 	
 	IList<int> users;
 	
@@ -78,10 +71,6 @@ public class GameManager : MonoBehaviour
 	void Start()
 	{
 		IniciarCalibracion();
-		
-		//para testing
-		//PosCamionesCarrera[0].x+=100;
-		//PosCamionesCarrera[1].x+=100;
 	}
 	
 	void Update()
@@ -118,14 +107,16 @@ public class GameManager : MonoBehaviour
 				}
 			}
 
-                if (PlayerInfo1.PJ == null && Input.GetKeyDown(KeyCode.W)) {
+
+                if (PlayerInfo1.PJ == null) {
                     PlayerInfo1 = new PlayerInfo(0, Player1);
-                    PlayerInfo1.LadoAct = Visualizacion.Lado.Izq;
+                    PlayerInfo1.LadoAct = SinglePlayer ? Visualizacion.Lado.Full : Visualizacion.Lado.Izq;
                     SetPosicion(PlayerInfo1);
                 }
 
-                if (PlayerInfo2.PJ == null && Input.GetKeyDown(KeyCode.UpArrow)) {
+                if (PlayerInfo2.PJ == null) {
                     PlayerInfo2 = new PlayerInfo(1, Player2);
+                    PlayerInfo2.Activated = !SinglePlayer;
                     PlayerInfo2.LadoAct = Visualizacion.Lado.Der;
                     SetPosicion(PlayerInfo2);
                 }
@@ -250,16 +241,17 @@ public class GameManager : MonoBehaviour
 	
 	public void IniciarCalibracion()
 	{
-		for(int i = 0; i < ObjsCalibracion1.Length; i++)
+        InputPlayer2.SetActive(!SinglePlayer);
+
+        for (int i = 0; i < ObjsCalibracion1.Length; i++)
 		{
 			ObjsCalibracion1[i].SetActiveRecursively(true);
 			ObjsCalibracion2[i].SetActiveRecursively(true);
 		}
 		
-		for(int i = 0; i < ObjsTuto2.Length; i++)
-		{
-			ObjsTuto2[i].SetActiveRecursively(false);
-			ObjsTuto1[i].SetActiveRecursively(false);
+		for(int i = 0; i < ObjsTuto2.Length; i++) {
+            ObjsTuto1[i].SetActiveRecursively(false);
+            ObjsTuto2[i].SetActiveRecursively(false);
 		}
 		
 		for(int i = 0; i < ObjsCarrera.Length; i++)
@@ -387,30 +379,14 @@ public class GameManager : MonoBehaviour
 	//se encarga de posicionar la camara derecha para el jugador que esta a la derecha y viseversa
 	void SetPosicion(PlayerInfo pjInf)
 	{	
-		pjInf.PJ.GetComponent<Visualizacion>().SetLado(pjInf.LadoAct);
+		pjInf.PJ.GetComponent<Visualizacion>().Setup(pjInf.LadoAct, pjInf.Activated);
 		//en este momento, solo la primera vez, deberia setear la otra camara asi no se superponen
 		pjInf.PJ.ContrCalib.IniciarTesteo();
 		PosSeteada = true;
-		
-		
-		if(pjInf.PJ == Player1)
-		{
-			if(pjInf.LadoAct == Visualizacion.Lado.Izq)
-				Player2.GetComponent<Visualizacion>().SetLado(Visualizacion.Lado.Der);
-			else
-				Player2.GetComponent<Visualizacion>().SetLado(Visualizacion.Lado.Izq);
-		}
-		else
-		{
-			if(pjInf.LadoAct == Visualizacion.Lado.Izq)
-				Player1.GetComponent<Visualizacion>().SetLado(Visualizacion.Lado.Der);
-			else
-				Player1.GetComponent<Visualizacion>().SetLado(Visualizacion.Lado.Izq);
-		}
-		
-	}
-	
-	void CambiarACarrera()
+    }
+
+
+    void CambiarACarrera()
 	{
 		//Debug.Log("CambiarACarrera()");
 		
@@ -488,6 +464,10 @@ public class GameManager : MonoBehaviour
 		//les de direccion
 		Player1.transform.forward = Vector3.forward;
 		Player2.transform.forward = Vector3.forward;
+
+        if (!PlayerInfo2.Activated) {
+            Player2.gameObject.SetActive(false);
+        }
 		
 		EstAct = GameManager.EstadoJuego.Jugando;
 	}
@@ -537,10 +517,28 @@ public class GameManager : MonoBehaviour
             TipoDeInput = tipoDeInput;
 			PJ = pj;
 		}
-		
+
+        public bool Activated = true;
 		public bool FinCalibrado = false;
-		public bool FinTuto1 = false;
-		public bool FinTuto2 = false;
+
+        bool _finTuto1 = false;
+        public bool FinTuto1 {
+            get {
+                return !Activated || _finTuto1;
+            }
+            set {
+                _finTuto1 = value;
+            }
+        }
+        bool _finTuto2 = false;
+        public bool FinTuto2 {
+            get {
+                return !Activated || _finTuto2;
+            }
+            set {
+                _finTuto2 = value;
+            }
+        }
 		
 		public Visualizacion.Lado LadoAct;
 
@@ -548,5 +546,11 @@ public class GameManager : MonoBehaviour
 		
 		public Player PJ;
 	}
+
+    public void SkipGame() {
+        if (EstAct == GameManager.EstadoJuego.Jugando) {
+            FinalizarCarrera();
+        }
+    }
 	
 }

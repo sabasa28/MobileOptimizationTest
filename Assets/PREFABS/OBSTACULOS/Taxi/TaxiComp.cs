@@ -51,7 +51,6 @@ public class TaxiComp : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		
 		if(Respawneando)
 		{
 			if(Medicion())

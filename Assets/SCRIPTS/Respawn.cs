@@ -67,7 +67,7 @@ public class Respawn : MonoBehaviour
 		
 		gameObject.SendMessage("SetGiro", 0f);
 		
-		if(CPAct.Habilitado())
+		if(CPAct != null && CPAct.Habilitado())
 		{
 			if(GetComponent<Visualizacion>().LadoAct == Visualizacion.Lado.Der)
 				transform.position = CPAct.transform.position + CPAct.transform.right * Random.Range(RangMinDer, RangMaxDer);

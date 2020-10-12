@@ -8,8 +8,10 @@ using System.Collections;
 /// </summary>
 public class Visualizacion : MonoBehaviour 
 {
-	public enum Lado{Izq, Der}
+	public enum Lado{Izq, Der, Full}
 	public Lado LadoAct;
+
+    bool activated = true;
 	
 	ControlDireccion Direccion;
 	Player Pj;
@@ -153,29 +155,33 @@ public class Visualizacion : MonoBehaviour
 	
 	//--------------------------------------------------------//
 	
-	public void CambiarACalibracion()
-	{
-		CamCalibracion.enabled = true;
+	public void CambiarACalibracion() {
+        if (!activated)
+            return;
+        CamCalibracion.enabled = true;
 		CamConduccion.enabled = false;
 		CamDescarga.enabled = false;
 	}
 	
-	public void CambiarATutorial()
-	{
-		CamCalibracion.enabled = false;
+	public void CambiarATutorial() {
+        if (!activated)
+            return;
+        CamCalibracion.enabled = false;
 		CamConduccion.enabled = true;
 		CamDescarga.enabled = false;
 	}
 	
-	public void CambiarAConduccion()
-	{
-		CamCalibracion.enabled = false;
+	public void CambiarAConduccion() {
+        if (!activated)
+            return;
+        CamCalibracion.enabled = false;
 		CamConduccion.enabled = true;
 		CamDescarga.enabled = false;
 	}
 	
-	public void CambiarADescarga()
-	{
+	public void CambiarADescarga() {
+        if (!activated)
+            return;
 		CamCalibracion.enabled = false;
 		CamConduccion.enabled = false;
 		CamDescarga.enabled = true;
@@ -183,32 +189,42 @@ public class Visualizacion : MonoBehaviour
 	
 	//---------//
 	
-	public void SetLado(Lado lado)
+	public void Setup(Lado lado, bool activated)
 	{
 		LadoAct = lado;
-		
-		Rect r = new Rect();
+        this.activated = activated;
+
+        Rect r = new Rect();
 		r.width = CamConduccion.rect.width;
 		r.height = CamConduccion.rect.height;
 		r.y = CamConduccion.rect.y;
 		
 		switch (lado)
 		{
-		case Lado.Der:
-			r.x = 0.5f;
-			break;
-			
-			
-		case Lado.Izq:
-			r.x = 0;
-			break;
-		}
+		    case Lado.Der:
+			    r.x = 0.5f;
+			    break;
+		    case Lado.Izq:
+			    r.x = 0;
+			    break;
+            case Lado.Full:
+                r.x = 0;
+                r.width = 1;
+                break;
+        }
 		
 		CamCalibracion.rect = r;
 		CamConduccion.rect = r;
 		CamDescarga.rect = r;
-		
-		if(LadoAct == Visualizacion.Lado.Izq)
+
+        if (!activated) {
+            CamCalibracion.enabled = false;
+            CamConduccion.enabled = false;
+            CamDescarga.enabled = false;
+        }
+
+
+        if (LadoAct == Visualizacion.Lado.Izq)
 		{
 			Techo.GetComponent<Renderer>().material.mainTexture = TextNum1;
 		}
@@ -401,7 +417,7 @@ public class Visualizacion : MonoBehaviour
 		Vector2 centro;
 		centro.x = R.x + R.width/2;
 		centro.y = R.y + R.height/2;
-		float angulo = 100 * Direccion.GetGiro();
+        float angulo = 100;
 		
 		GUIUtility.RotateAroundPivot(angulo, centro);
 				
