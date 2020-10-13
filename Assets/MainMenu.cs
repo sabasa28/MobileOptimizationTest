@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
@@ -10,6 +11,8 @@ public class MainMenu : MonoBehaviour
     [SerializeField] Toggle player2 = null;
     [SerializeField] GameObject help1Player = null;
     [SerializeField] GameObject help2Players = null;
+    [SerializeField] float minTimeToLoad = 2.0f;
+    [SerializeField] GameObject loadingScreen = null;
 
     // Start is called before the first frame update
     void Start() {
@@ -18,22 +21,19 @@ public class MainMenu : MonoBehaviour
 
     public void PlayButton() {
         if (player1.isOn) {
-            Debug.Log("Play with 1 player");
             GameManager.SinglePlayer = true;
-            UnityEngine.SceneManagement.SceneManager.LoadScene("conduccion9");
+            SceneManager.LoadScene("conduccion9");
         }
         else if (player2.isOn) {
-            Debug.Log("Play with 2 player");
             GameManager.SinglePlayer = false;
-            UnityEngine.SceneManagement.SceneManager.LoadScene("conduccion9");
+            SceneManager.LoadScene("conduccion9");
         }
         else {
-            Debug.Log("Plz select a game mode");
         }
     }
 
     public void GoToCredits() {
-         UnityEngine.SceneManagement.SceneManager.LoadScene("Credits");
+         SceneManager.LoadScene("Credits");
     }
 
     public void OnGameModeSelected(bool status) {
@@ -43,5 +43,34 @@ public class MainMenu : MonoBehaviour
 
     public void OnExitButton() {
         Debug.Log("Exit");
+    }
+
+    IEnumerator PreloadScene(string scene)
+    {
+        float loadingProgress;
+        float timeLoading = 0;
+        yield return null;
+        if (!SceneManager.GetSceneByName(scene).isLoaded)
+        {
+            AsyncOperation ao = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
+            ao.allowSceneActivation = false;
+
+            while (!ao.isDone)
+            {
+                timeLoading += Time.deltaTime;
+                loadingProgress = ao.progress + 0.1f;
+                loadingProgress = loadingProgress * timeLoading / minTimeToLoad;
+
+                // Loading completed
+                if (loadingProgress >= 1)
+                {
+                    loadingScreen.SetActive(false);
+                    ao.allowSceneActivation = true;
+
+                }
+                yield return null;
+            }
+        }
+        SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(1));
     }
 }

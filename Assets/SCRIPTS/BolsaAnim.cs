@@ -10,7 +10,7 @@ public class BolsaAnim : MonoBehaviour
 	public float VelMov = 1;
 	
 	Vector3 PosIni;
-	Vector3 vAuxPos = Vector3.zero;
+
 	//float Aumento = 0;
 	bool Subiendo = true;
 	Vector3 vAuxGir = Vector3.zero;

@@ -4,9 +4,10 @@ using System.Collections;
 // This is in fact just the Water script from Pro Standard Assets,
 // just with refraction stuff removed.
 
-[ExecuteInEditMode] // Make mirror live-update even when not in play mode
+//[ExecuteInEditMode] // Make mirror live-update even when not in play mode
 public class MirrorReflection : MonoBehaviour
 {
+    /*
     public bool m_DisablePixelLights = true;
     public bool m_DisableTreesAndDetails = true;
     public int m_TextureSize = 256;
@@ -252,4 +253,5 @@ public class MirrorReflection : MonoBehaviour
         reflectionMat.m32 = 0F;
         reflectionMat.m33 = 1F;
     }
+    */
 }

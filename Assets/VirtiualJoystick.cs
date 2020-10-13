@@ -43,10 +43,10 @@ public class VirtiualJoystick : MonoBehaviour, IDragHandler, IPointerUpHandler, 
     }
 
     void SetHorizontal(float val) {
-        InputManager.Instance.SetAxis("Horizontal" + player, val);
+        InputManager.Instance.SetAxis(InputManager.Instance.horizontal + player, val);
     }
     void SetVertical(float val) {
-        InputManager.Instance.SetAxis("Vertical" + player, val);
+        InputManager.Instance.SetAxis(InputManager.Instance.vertical + player, val);
     }
 
     Vector2 ConverToLocal(PointerEventData eventData) {

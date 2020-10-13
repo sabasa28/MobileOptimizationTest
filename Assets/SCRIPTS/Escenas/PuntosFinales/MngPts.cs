@@ -8,9 +8,6 @@ public class MngPts : MonoBehaviour
 	public float TiempEmpAnims = 2.5f;
 	float Tempo = 0;
 	
-	int IndexGanador = 0;
-	
-	public Vector2[] DineroPos;
 	public Vector2 DineroEsc;
 	public GUISkin GS_Dinero;
 	
@@ -121,7 +118,7 @@ public class MngPts : MonoBehaviour
 		GUI.skin = null;
 	}
 	*/
-	
+	/*
 	void OnGUI()
 	{
 		if(ActivadoAnims)
@@ -132,7 +129,7 @@ public class MngPts : MonoBehaviour
 		
 		GUI.skin = null;
 	}
-	
+	*/
 	//---------------------------------//
 	
 	/*
@@ -196,11 +193,7 @@ public class MngPts : MonoBehaviour
 		R.height = DineroEsc.y * Screen.height/100;
 		
 		
-		
-		//IZQUIERDA
-		R.x = DineroPos[0].x * Screen.width/100;
-		R.y = DineroPos[0].y * Screen.height/100;
-		
+
 		if(DatosPartida.LadoGanadaor == DatosPartida.Lados.Izq)//izquierda
 		{
 			if(!PrimerImaParp)//para que parpadee
@@ -210,13 +203,7 @@ public class MngPts : MonoBehaviour
 		{
 			GUI.Box(R, "$" + Viz.PrepararNumeros(DatosPartida.PtsPerdedor));
 		}
-		
-		
-		
-		//DERECHA
-		R.x = DineroPos[1].x * Screen.width/100;
-		R.y = DineroPos[1].y * Screen.height/100;
-		
+
 		if(DatosPartida.LadoGanadaor == DatosPartida.Lados.Der)//derecha
 		{
 			if(!PrimerImaParp)//para que parpadee

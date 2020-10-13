@@ -10,13 +10,7 @@ public class CarController : MonoBehaviour {
     public float maxTurn = 20f;
     float giro = 0f;
     float acel = 1f;
-
-    // Use this for initialization
-    void Start () {
-		
-	}
-
-	
+   
 	// Update is called once per frame
 	void FixedUpdate () {
         foreach (var wheel in throttleWheels) {

@@ -21,22 +21,19 @@ public class GameManager : MonoBehaviour
 	public Player Player2;
 	
 	//mueve los esqueletos para usar siempre los mismos
-	public Transform Esqueleto1;
-	public Transform Esqueleto2;
+	//public Transform Esqueleto1;
+	//public Transform Esqueleto2;
 	//public Vector3[] PosEsqsCalib;
-	public Vector3[] PosEsqsCarrera;
+	//public Vector3[] PosEsqsCarrera;
 	
-	bool PosSeteada = false;
+	//bool PosSeteada = false;
 	
 	bool ConteoRedresivo = true;
 	public Rect ConteoPosEsc;
 	public float ConteoParaInicion = 3;
-	public GUISkin GS_ConteoInicio;
 	
 	public Rect TiempoGUI = new Rect();
-	public GUISkin GS_TiempoGUI;
-	Rect R = new Rect();
-	
+
 	public float TiempEspMuestraPts = 3;
 	
 	//posiciones de los camiones dependientes del lado que les toco en la pantalla
@@ -62,12 +59,12 @@ public class GameManager : MonoBehaviour
 	IList<int> users;
 	
 	//--------------------------------------------------------//
-	
+	 
 	void Awake()
-	{
+	{ 
 		GameManager.Instancia = this;
 	}
-	
+
 	void Start()
 	{
 		IniciarCalibracion();
@@ -200,7 +197,7 @@ public class GameManager : MonoBehaviour
 			break;		
 		}
 	}
-	
+	/*
 	void OnGUI()
 	{
 		switch (EstAct)
@@ -236,7 +233,7 @@ public class GameManager : MonoBehaviour
 		
 		GUI.skin = null;
 	}
-	
+	*/
 	//----------------------------------------------------------//
 	
 	public void IniciarCalibracion()
@@ -245,18 +242,18 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < ObjsCalibracion1.Length; i++)
 		{
-			ObjsCalibracion1[i].SetActiveRecursively(true);
-			ObjsCalibracion2[i].SetActiveRecursively(true);
+			ObjsCalibracion1[i].SetActive(true);
+			ObjsCalibracion2[i].SetActive(true);
 		}
 		
 		for(int i = 0; i < ObjsTuto2.Length; i++) {
-            ObjsTuto1[i].SetActiveRecursively(false);
-            ObjsTuto2[i].SetActiveRecursively(false);
+            ObjsTuto1[i].SetActive(false);
+            ObjsTuto2[i].SetActive(false);
 		}
 		
 		for(int i = 0; i < ObjsCarrera.Length; i++)
 		{
-			ObjsCarrera[i].SetActiveRecursively(false);
+			ObjsCarrera[i].SetActive(false);
 		}
 		
 		
@@ -283,12 +280,12 @@ public class GameManager : MonoBehaviour
 			
 		for(int i = 0; i < ObjsTuto1.Length; i++)
 		{
-			ObjsTuto1[i].SetActiveRecursively(true);
+			ObjsTuto1[i].SetActive(true);
 		}
 		
 		for(int i = 0; i < ObjsCalibracion1.Length; i++)
 		{
-			ObjsCalibracion1[i].SetActiveRecursively(false);
+			ObjsCalibracion1[i].SetActive(false);
 		}
 		Player1.GetComponent<Frenado>().Frenar();
 		Player1.CambiarATutorial();
@@ -300,12 +297,12 @@ public class GameManager : MonoBehaviour
 			
 		for(int i = 0; i < ObjsCalibracion2.Length; i++)
 		{
-			ObjsCalibracion2[i].SetActiveRecursively(false);
+			ObjsCalibracion2[i].SetActive(false);
 		}
 		
 		for(int i = 0; i < ObjsTuto2.Length; i++)
 		{
-			ObjsTuto2[i].SetActiveRecursively(true);
+			ObjsTuto2[i].SetActive(true);
 		}
 		Player2.GetComponent<Frenado>().Frenar();
 		Player2.gameObject.transform.position = PosCamion2Tuto;
@@ -378,11 +375,10 @@ public class GameManager : MonoBehaviour
 	
 	//se encarga de posicionar la camara derecha para el jugador que esta a la derecha y viseversa
 	void SetPosicion(PlayerInfo pjInf)
-	{	
+	{
 		pjInf.PJ.GetComponent<Visualizacion>().Setup(pjInf.LadoAct, pjInf.Activated);
 		//en este momento, solo la primera vez, deberia setear la otra camara asi no se superponen
 		pjInf.PJ.ContrCalib.IniciarTesteo();
-		PosSeteada = true;
     }
 
 
@@ -390,8 +386,8 @@ public class GameManager : MonoBehaviour
 	{
 		//Debug.Log("CambiarACarrera()");
 		
-		Esqueleto1.transform.position = PosEsqsCarrera[0];
-		Esqueleto2.transform.position = PosEsqsCarrera[1];
+		//Esqueleto1.transform.position = PosEsqsCarrera[0];
+		//Esqueleto2.transform.position = PosEsqsCarrera[1];
 		
 		for(int i = 0; i < ObjsCarrera.Length; i++)
 		{
@@ -401,8 +397,8 @@ public class GameManager : MonoBehaviour
 		/*
 		for(int i = 0; i < ObjsTuto1.Length; i++)
 		{
-			ObjsTuto1[i].SetActiveRecursively(false);
-			ObjsTuto2[i].SetActiveRecursively(false);
+			ObjsTuto1[i].SetActive(false);
+			ObjsTuto2[i].SetActive(false);
 		}
 		*/
 		
@@ -412,24 +408,24 @@ public class GameManager : MonoBehaviour
 			
 		for(int i = 0; i < ObjsTuto1.Length; i++)
 		{
-			ObjsTuto1[i].SetActiveRecursively(true);
+			ObjsTuto1[i].SetActive(true);
 		}
 		
 		for(int i = 0; i < ObjsCalibracion1.Length; i++)
 		{
-			ObjsCalibracion1[i].SetActiveRecursively(false);
+			ObjsCalibracion1[i].SetActive(false);
 		}
 		
 		PlayerInfo2.FinCalibrado = true;
 			
 		for(int i = 0; i < ObjsCalibracion2.Length; i++)
 		{
-			ObjsCalibracion2[i].SetActiveRecursively(false);
+			ObjsCalibracion2[i].SetActive(false);
 		}
 		
 		for(int i = 0; i < ObjsTuto2.Length; i++)
 		{
-			ObjsTuto2[i].SetActiveRecursively(true);
+			ObjsTuto2[i].SetActive(true);
 		}
 		
 		

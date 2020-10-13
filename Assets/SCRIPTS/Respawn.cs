@@ -16,12 +16,15 @@ public class Respawn : MonoBehaviour
 	bool IgnorandoColision = false;
 	public float TiempDeNoColision = 2;
 	float Tempo = 0;
-	
+
+	CarController carController;
+
 	//--------------------------------------------------------//
 
 	// Use this for initialization
 	void Start () 
 	{
+		carController = GetComponent<CarController>();
 		/*
 		//a modo de prueba
 		TiempDeNoColision = 100;
@@ -64,8 +67,8 @@ public class Respawn : MonoBehaviour
 	public void Respawnear()
 	{
 		GetComponent<Rigidbody>().velocity = Vector3.zero;
-		
-		gameObject.SendMessage("SetGiro", 0f);
+
+		carController.SetGiro(0f);
 		
 		if(CPAct != null && CPAct.Habilitado())
 		{
@@ -93,9 +96,9 @@ public class Respawn : MonoBehaviour
 	public void Respawnear(Vector3 pos)
 	{
 		GetComponent<Rigidbody>().velocity = Vector3.zero;
-		
-		gameObject.SendMessage("SetGiro", 0f);
-		
+
+		carController.SetGiro(0f);
+
 		transform.position = pos;
 		
 		IgnorarColision(true);
@@ -104,9 +107,9 @@ public class Respawn : MonoBehaviour
 	public void Respawnear(Vector3 pos, Vector3 dir)
 	{
 		GetComponent<Rigidbody>().velocity = Vector3.zero;
-		
-		gameObject.SendMessage("SetGiro", 0f);
-		
+
+		carController.SetGiro(0f);
+
 		transform.position = pos;
 		transform.forward = dir;
 		

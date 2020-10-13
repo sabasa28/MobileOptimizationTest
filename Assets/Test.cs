@@ -12,7 +12,7 @@ public class Test : MonoBehaviour {
         transform.position += 
             speed * 
             Time.deltaTime * 
-            new Vector3(InputManager.Instance.GetAxis("Horizontal" + player), 0, InputManager.Instance.GetAxis("Vertical" + player));
+            new Vector3(InputManager.Instance.GetAxis(InputManager.Instance.horizontal + player), 0, InputManager.Instance.GetAxis(InputManager.Instance.vertical + player));
     }
 
 }

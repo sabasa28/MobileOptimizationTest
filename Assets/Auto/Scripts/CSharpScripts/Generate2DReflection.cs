@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Generate2DReflection : MonoBehaviour
 {
+	/*
 	public bool useRealtimeReflection = false;
 	
 	public int textureSize = 128;
@@ -63,5 +64,5 @@ public class Generate2DReflection : MonoBehaviour
 		cam.transform.rotation = Camera.main.transform.rotation;
 		
 		cam.RenderToCubemap(rtex, 63);
-	}
+	}*/
 }

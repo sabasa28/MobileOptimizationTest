@@ -13,8 +13,6 @@ public class Visualizacion : MonoBehaviour
 
     bool activated = true;
 	
-	ControlDireccion Direccion;
-	Player Pj;
 	
 	//las distintas camaras
 	public Camera CamCalibracion;
@@ -26,13 +24,11 @@ public class Visualizacion : MonoBehaviour
 	public Vector2[]DinPos;
 	public Vector2 DinEsc = Vector2.zero;
 	
-	public GUISkin GS_Din;
 	
 	//EL VOLANTE
 	public Vector2[] VolantePos;
 	public float VolanteEsc = 0;
 	
-	public GUISkin GS_Volante;
 	
 	
 	//PARA EL INVENTARIO
@@ -46,71 +42,13 @@ public class Visualizacion : MonoBehaviour
 	//public int Fil = 0;
 	//public int Col = 0;
 	
-	public Texture2D TexturaVacia;//lo que aparece si no hay ninguna bolsa
-	public Texture2D TextFondo;
-	
-	public float Parpadeo = 0.8f;
-	public float TempParp = 0;
-	public bool PrimIma = true;
-	
-	public Texture2D[] TextInvIzq;
-	public Texture2D[] TextInvDer;
-	
-	public GUISkin GS_Inv;
-	
-	//BONO DE DESCARGA
-	public Vector2 BonusPos = Vector2.zero;
-	public Vector2 BonusEsc = Vector2.zero;
-	
-	public Color32 ColorFondoBolsa;	
-	public Vector2 ColorFondoPos = Vector2.zero;
-	public Vector2 ColorFondoEsc = Vector2.zero;
-	
-	public Vector2 ColorFondoFondoPos = Vector2.zero;
-	public Vector2 ColorFondoFondoEsc = Vector2.zero;
-	
-	public GUISkin GS_FondoBonusColor;
-	public GUISkin GS_FondoFondoBonusColor;
-	public GUISkin GS_Bonus;
-	
-	
-	//CALIBRACION MAS TUTO BASICO
-	public Vector2 ReadyPos = Vector2.zero;
-	public Vector2 ReadyEsc = Vector2.zero;
-	public Texture2D[] ImagenesDelTuto;
-	public float Intervalo = 0.8f;//tiempo de cada cuanto cambia de imagen
-	float TempoIntTuto = 0;
-	int EnCurso = -1;
-	public Texture2D ImaEnPosicion;
-	public Texture2D ImaReady;
-	public GUISkin GS_TutoCalib;	
-	
 	//NUMERO DEL JUGADOR
 	public Texture2D TextNum1; 
 	public Texture2D TextNum2;
 	public GameObject Techo;
 	
-	
-	
-	
-	Rect R;
-	
-	//------------------------------------------------------------------//
-	
-	// Use this for initialization
-	void Start () 
-	{
-		TempoIntTuto = Intervalo;
-		Direccion = GetComponent<ControlDireccion>();
-		Pj = GetComponent<Player>();
-	}
-	
-	// Update is called once per frame
-	void Update () 
-	{
-		
-	}
-	
+
+	/*
 	void OnGUI()
 	{	
 		switch(Pj.EstAct)
@@ -152,7 +90,7 @@ public class Visualizacion : MonoBehaviour
 		
 		GUI.skin = null;
 	}
-	
+	*/
 	//--------------------------------------------------------//
 	
 	public void CambiarACalibracion() {
@@ -233,7 +171,7 @@ public class Visualizacion : MonoBehaviour
 			Techo.GetComponent<Renderer>().material.mainTexture = TextNum2;
 		}
 	}
-	
+	/*
 	void SetBonus()
 	{
 		if(Pj.ContrDesc.PEnMov != null)
@@ -353,7 +291,7 @@ public class Visualizacion : MonoBehaviour
 			GUI.Box(R,"ESPERANDO AL OTRO JUGADOR");
 		}
 	}
-	
+	*/
 	/*
 	void SetInv()
 	{
@@ -400,7 +338,7 @@ public class Visualizacion : MonoBehaviour
 		}
 	}
 	*/
-	
+	/*
 	void SetVolante()
 	{
 		GUI.skin = GS_Volante;
@@ -533,7 +471,7 @@ public class Visualizacion : MonoBehaviour
 		
 		GUI.Box(R,"");
 	}
-	
+	*/
 	public string PrepararNumeros(int dinero)
 	{
 		string strDinero = dinero.ToString();

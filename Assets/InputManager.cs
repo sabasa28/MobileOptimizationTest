@@ -16,6 +16,9 @@ public class InputManager {
         }
     }
 
+    public string horizontal = "Horizontal";
+    public string vertical = "Vertical";
+
     public enum ButtonStates {
         Down,
         Up,

@@ -17,9 +17,10 @@ public class Bolsa : MonoBehaviour
 	void Start () 
 	{
 		Monto = Pallet.Valores.Valor2;
-		
-		
-		if(Particulas != null)
+		//Particulas.GetComponent<ParticleSystem>().Play();
+
+
+		if (Particulas != null)
 			Particulas.SetActive(false);
 			
 	}
@@ -35,7 +36,7 @@ public class Bolsa : MonoBehaviour
 			{
 				GetComponent<Renderer>().enabled = true;
 				GetComponent<Collider>().enabled = true;
-				
+
 				Particulas.GetComponent<ParticleSystem>().Stop();
 				gameObject.SetActive(false);
 			}

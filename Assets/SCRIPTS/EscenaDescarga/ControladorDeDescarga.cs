@@ -3,8 +3,7 @@ using System.Collections;
 
 public class ControladorDeDescarga : MonoBehaviour 
 {
-	System.Collections.Generic.List<Pallet.Valores> Ps = new System.Collections.Generic.List<Pallet.Valores>();
-	
+
 	int Contador = 0;
 	
 	Deposito2 Dep;
@@ -46,7 +45,7 @@ public class ControladorDeDescarga : MonoBehaviour
 	{
 		for (int i = 0; i < Componentes.Length; i++)
 		{
-			Componentes[i].SetActiveRecursively(false);
+			Componentes[i].SetActive(false);
 		}
 		
 		CollCamion = Pj.GetComponentInChildren<MeshCollider>();
@@ -80,12 +79,12 @@ public class ControladorDeDescarga : MonoBehaviour
 	public void Activar(Deposito2 d)
 	{
 		Dep = d;//recibe el deposito para que sepa cuando dejarlo ir al camion
-		CamaraConduccion.SetActiveRecursively(false);//apaga la camara de conduccion
+		CamaraConduccion.SetActive(false);//apaga la camara de conduccion
 			
 		//activa los componentes
 		for (int i = 0; i < Componentes.Length; i++)
 		{
-			Componentes[i].SetActiveRecursively(true);
+			Componentes[i].SetActive(true);
 		}
 		
 			
@@ -186,10 +185,10 @@ public class ControladorDeDescarga : MonoBehaviour
 		
 		for (int i = 0; i < Componentes.Length; i++)
 		{
-			Componentes[i].SetActiveRecursively(false);
+			Componentes[i].SetActive(false);
 		}
 		
-		CamaraConduccion.SetActiveRecursively(true);
+		CamaraConduccion.SetActive(true);
 		
 		CollCamion.enabled = true;
 		

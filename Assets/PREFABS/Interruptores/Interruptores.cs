@@ -28,10 +28,9 @@ public class Interruptores : MonoBehaviour
 			if(other.tag == TagPlayer)
 			{
 				Activado = true;
-				print("activado interrutor");
 				for(int i = 0; i < AActivar.Length; i++)
 				{
-					AActivar[i].SetActiveRecursively(true);
+					AActivar[i].SetActive(true);
 				}
 			}
 		}

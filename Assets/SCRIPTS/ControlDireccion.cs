@@ -10,12 +10,11 @@ public class ControlDireccion : MonoBehaviour
 	
 	public float MaxAng = 90;
 	public float DesSencibilidad = 90;
-	
-	float Giro = 0;
-	
-	public enum Sentido {Der, Izq}
-	Sentido DirAct;
-	
+
+
+	CarController carController;
+   
+
 	public bool Habilitado = true;
 	//float Diferencia;
 		
@@ -24,14 +23,14 @@ public class ControlDireccion : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-	
+		carController = GetComponent<CarController>();
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-        float axis = InputManager.Instance.GetAxis("Horizontal" + player);
-        gameObject.SendMessage("SetGiro", axis);
+        float axis = InputManager.Instance.GetAxis(InputManager.Instance.horizontal + player);
+		carController.SetGiro(axis);
 	}
 	
 	float Angulo()
