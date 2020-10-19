@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class JuegoEscMgr : MonoBehaviour 
 {
@@ -26,7 +27,7 @@ public class JuegoEscMgr : MonoBehaviour
 			if(Tempo > TiempoEsperaFin)
 			{
 				Tempo = 0;
-				Application.LoadLevel(0);
+				SceneManager.LoadScene(0);
 			}
 		}
 		
@@ -36,7 +37,7 @@ public class JuegoEscMgr : MonoBehaviour
 			if(Tempo > TiempoEsperaInicio)
 			{
 				Tempo2 = 0;
-				Application.LoadLevel(0);
+				SceneManager.LoadScene(0);
 			}
 		}		
 		
@@ -48,7 +49,7 @@ public class JuegoEscMgr : MonoBehaviour
 		//reinicia
 		if(Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
 		{
-			Application.LoadLevel(Application.loadedLevel);
+			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 		}
 	}
 	

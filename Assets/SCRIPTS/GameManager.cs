@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
-
+using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     //public static Player[] Jugadoers;
@@ -76,7 +76,7 @@ public class GameManager : MonoBehaviour
 		if(Input.GetKey(KeyCode.Mouse1) &&
 		   Input.GetKey(KeyCode.Keypad0))
 		{
-			Application.LoadLevel(Application.loadedLevel);
+			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 		}
 		
 		//CIERRA LA APLICACION
@@ -192,7 +192,7 @@ public class GameManager : MonoBehaviour
 			
 			TiempEspMuestraPts -= Time.deltaTime;
 			if(TiempEspMuestraPts <= 0)
-				Application.LoadLevel(Application.loadedLevel +1);				
+				SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
 			
 			break;		
 		}

@@ -109,11 +109,13 @@ public class Visualizacion : MonoBehaviour
 		CamDescarga.enabled = false;
 	}
 	
-	public void CambiarAConduccion() {
+	public void CambiarAConduccion(GameObject playerUI) {
         if (!activated)
             return;
         CamCalibracion.enabled = false;
 		CamConduccion.enabled = true;
+		if (LadoAct == Lado.Full || !GameManager.SinglePlayer)
+			playerUI.SetActive(true);
 		CamDescarga.enabled = false;
 	}
 	

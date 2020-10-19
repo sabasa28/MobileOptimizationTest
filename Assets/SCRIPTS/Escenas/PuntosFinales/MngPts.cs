@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class MngPts : MonoBehaviour 
 {
@@ -45,14 +46,14 @@ public class MngPts : MonoBehaviour
 		   Input.GetKeyDown(KeyCode.Return) ||
 		   Input.GetKeyDown(KeyCode.Mouse0))
 		{
-			Application.LoadLevel(0);
+			SceneManager.LoadScene(0);
 		}
 		
 		//REINICIAR
 		if(Input.GetKeyDown(KeyCode.Mouse1) ||
 		   Input.GetKeyDown(KeyCode.Keypad0))
 		{
-			Application.LoadLevel(Application.loadedLevel);
+			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 		}
 		
 		//CIERRA LA APLICACION
@@ -64,14 +65,14 @@ public class MngPts : MonoBehaviour
 		//CALIBRACION DEL KINECT
 		if(Input.GetKeyDown(KeyCode.Backspace))
 		{
-			Application.LoadLevel(3);
+			SceneManager.LoadScene(3);
 		}		
 		
 		
 		TiempEspReiniciar -= Time.deltaTime;
 		if(TiempEspReiniciar <= 0 )
 		{
-			Application.LoadLevel(0);
+			SceneManager.LoadScene(0);
 		}
 		
 		

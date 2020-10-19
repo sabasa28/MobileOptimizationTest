@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class ControladorDeDescarga : MonoBehaviour 
@@ -23,7 +24,7 @@ public class ControladorDeDescarga : MonoBehaviour
 	public GameObject Pallet1;
 	public GameObject Pallet2;
 	public GameObject Pallet3;
-	
+
 	
 	public Estanteria Est1;
 	public Estanteria Est2;
@@ -33,7 +34,9 @@ public class ControladorDeDescarga : MonoBehaviour
 	
 	public float Bonus = 0;
 	float TempoBonus;
-	
+
+	public GameObject bonusSprite;
+	public Slider bonusSlider;
 	
 	public AnimMngDesc ObjAnimado;
 
@@ -68,7 +71,8 @@ public class ControladorDeDescarga : MonoBehaviour
 			else
 			{
 				Bonus = 0;
-			}		
+			}
+			bonusSlider.value = TempoBonus;
 		}
 		
 		
@@ -127,6 +131,7 @@ public class ControladorDeDescarga : MonoBehaviour
 	//cuando sale de un estante
 	public void SalidaPallet(Pallet p)
 	{
+		bonusSprite.SetActive(true);
 		PEnMov = p;
 		TempoBonus = p.Tiempo;
 		Pj.SacarBolasa();
@@ -136,6 +141,7 @@ public class ControladorDeDescarga : MonoBehaviour
 	//cuando llega a la cinta
 	public void LlegadaPallet(Pallet p)
 	{
+		bonusSprite.SetActive(false);
 		//termina el contador y suma los pts
 		
 		//termina la descarga

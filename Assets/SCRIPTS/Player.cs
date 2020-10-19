@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System;
 
 public class Player : MonoBehaviour 
 {
@@ -19,8 +20,11 @@ public class Player : MonoBehaviour
 	public ControladorDeDescarga ContrDesc;
 	public ContrCalibracion ContrCalib;
 	public ContrTutorial ContrTuto;
-	
+
+	public GameObject conduccionUI;
+
 	Visualizacion MiVisualizacion;
+	public Action<int, int, int> UpdateUI;
 	
 	//------------------------------------------------------------------//
 
@@ -32,15 +36,7 @@ public class Player : MonoBehaviour
 		
 		MiVisualizacion = GetComponent<Visualizacion>();
 	}
-	
-	// Update is called once per frame
-	void Update () 
-	{
-	
-	}
-	
-	//------------------------------------------------------------------//
-	
+
 	public bool AgregarBolsa(Bolsa b)
 	{
 		if(CantBolsAct + 1 <= Bolasas.Length)
@@ -49,6 +45,7 @@ public class Player : MonoBehaviour
 			CantBolsAct++;
 			Dinero += (int)b.Monto;
 			b.Desaparecer();
+			UpdateUI(IdPlayer, Dinero, CantBolsAct);
 			return true;
 		}
 		else
@@ -63,6 +60,7 @@ public class Player : MonoBehaviour
 			Bolasas[i] = null;
 		
 		CantBolsAct = 0;
+		UpdateUI(IdPlayer, Dinero, CantBolsAct);
 	}
 	
 	public bool ConBolasas()
@@ -102,7 +100,7 @@ public class Player : MonoBehaviour
 	
 	public void CambiarAConduccion()
 	{
-		MiVisualizacion.CambiarAConduccion();
+		MiVisualizacion.CambiarAConduccion(conduccionUI);
 		EstAct = Player.Estados.EnConduccion;
 	}
 	
